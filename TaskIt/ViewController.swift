@@ -71,5 +71,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return fetchedResultsController
     }
     
+    func toString(date:NSDate) -> String {
+        let dateStringFormatter = NSDateFormatter()
+        dateStringFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateStringFormatter.stringFromDate(date)
+        
+        return dateString
+    }
+    
 }
 
