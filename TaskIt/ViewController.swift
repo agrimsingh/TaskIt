@@ -14,6 +14,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        fetchedResultsController = getFetchedResultsController()
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch _ {
+            
+        }
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,5 +63,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     @IBOutlet var tableView: UITableView!
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    var fetchedResultsController:NSFetchedResultsController = NSFetchedResultsController()
+    
+    func getFetchedResultsController() -> NSFetchedResultsController {
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: "isCompleted", cacheName: nil)
+        return fetchedResultsController
+    }
+    
 }
 
