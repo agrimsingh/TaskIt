@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,26 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        print("You have clicked row: " + "\(indexPath.row)")
+        performSegueWithIdentifier("showTaskDetail", sender: self)
+        
+    }
 
+    @IBAction func addButtonPressed(sender: AnyObject) {
+        self.performSegueWithIdentifier("showTaskAdd", sender: self)
+    }
 
+    @IBOutlet var tableView: UITableView!
 }
 
