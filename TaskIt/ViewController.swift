@@ -35,6 +35,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         performSegueWithIdentifier("showTaskDetail", sender: self)
         
     }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        print("Hey, something has changed!")
+        tableView.reloadData()
+    }
+    
+    func taskFetchRequest() -> NSFetchRequest {
+        let fetchRequest = NSFetchRequest(entityName: "TaskModel")
+        let sortdescriptor1 = NSSortDescriptor(key: "date", ascending: true)
+        let sortdescriptor2 = NSSortDescriptor(key: "isCompleted", ascending: true)
+        fetchRequest.sortDescriptors = [sortdescriptor2, sortdescriptor1] //order matters
+        
+        return fetchRequest
+    }
 
     @IBAction func addButtonPressed(sender: AnyObject) {
         self.performSegueWithIdentifier("showTaskAdd", sender: self)
